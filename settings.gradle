@@ -1,1 +1,3 @@
 include ':app', ':opencv343'
+project(':opencv343').projectDir = new File(rootDir, 'opencv343/')
+include ':opencv343'
