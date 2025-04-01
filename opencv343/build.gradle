@@ -100,7 +100,10 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
     }
-
+    buildFeatures {
+        aidl = true
+        buildConfig = true
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -124,4 +127,10 @@ android {
 }
 
 dependencies {
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
 }
