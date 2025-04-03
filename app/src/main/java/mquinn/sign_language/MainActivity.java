@@ -20,6 +20,7 @@ import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
 import org.opencv.android.LoaderCallbackInterface;
 import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
 import java.io.File;
@@ -92,6 +93,8 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
 
         // Camera config
         mOpenCvCameraView = findViewById(R.id.sign_language_activity_surface_view);
+        mOpenCvCameraView.setCameraIndex(CameraBridgeViewBase.CAMERA_ID_FRONT);
+
         mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);
         mOpenCvCameraView.setCvCameraViewListener(this);
 
@@ -158,7 +161,14 @@ public class MainActivity extends Activity implements CvCameraViewListener2 {
 //        mainRenderer.display(postProcessedFrame);
 
         // Return processed Mat
-        return classifiedFrame.getRGBA();
+        //return classifiedFrame.getRGBA();
+        Mat frame = inputFrame.rgba();
+
+        // Flip the frame horizontally (mirror effect)
+        Core.flip(frame, frame, 1);
+        //Core.rotate(frame, frame, Core.ROTATE_90_COUNTERCLOCKWISE);
+
+        return frame;
     }
 
     @Override
